@@ -1,5 +1,7 @@
 # A-S-FLC: Asymmetric Signed Force-Loop-Chain
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/denial-web/a-s-flc-llm-enhancer/blob/main/demo.ipynb)
+
 **Turn any LLM into a force-guided decision navigator.**
 
 A-S-FLC is a prompt + engine framework that upgrades LLM reasoning for decisions under uncertainty. Instead of symmetric "pros and cons" lists, it treats positives as exact (trusted) and negatives as estimates that get a conservative buffer proportional to uncertainty — then scores multiple event chains, loops until stable, and picks the highest-confidence path.
