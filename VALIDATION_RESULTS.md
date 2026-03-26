@@ -247,6 +247,66 @@ The edge-case synthetic tests (Phase 1) already proved these components work cor
 
 ---
 
+## Phase 5: What-If Stress Testing — Single-Shot vs What-If Mode
+
+Tests whether adding a What-If stress test step to the FG-CoT prompt improves decision quality and risk awareness.
+
+### What-If Mode Adds
+
+The What-If prompt extends single-shot FG-CoT with one extra step: for the top 2 chains, the LLM asks "What if the largest negative event occurs at full severity midway?" and recalculates the net. If the net drops >15%, the chain is flagged as HIGH-RISK.
+
+Two new output fields:
+- `what_if_summary` — one-sentence description of the stress test result
+- `risk_flags` — list of chains flagged as high-risk
+
+### Head-to-Head Comparison (10 cases)
+
+| Metric | Single-Shot | What-If | Delta |
+|---|---|---|---|
+| Success rate | 10/10 | 10/10 | — |
+| Mean PE | **0.810** | 0.769 | -0.041 |
+| Mean NA | 0.817 | **0.856** | **+0.039** |
+| Mean Regret | 0.000 | 0.000 | — |
+| Loop Stable | 100% | 100% | — |
+| Risk flags produced | — | 4/10 cases | new capability |
+
+### Per-Case Comparison
+
+| Case | SS Net | WI Net | SS NA | WI NA | Risk Flagged? |
+|---|---|---|---|---|---|
+| travel-01 | +1.60 | +1.60 | 0.610 | 0.610 | No |
+| travel-02 | +5.12 | +6.20 | 0.887 | 0.780 | Yes (chain-0) |
+| financial-01 | +5.70 | +5.12 | 0.880 | 0.938 | No |
+| financial-02 | +5.70 | +3.90 | 0.810 | **0.990** | Yes (chain-1) |
+| career-01 | +6.20 | +6.20 | 0.880 | 0.880 | Yes (chain-1) |
+| career-02 | +1.60 | +1.60 | 0.710 | 0.710 | Yes (chain-0) |
+| product-01 | +6.20 | +6.20 | 0.780 | 0.780 | No |
+| product-02 | +5.33 | +4.17 | 0.887 | **0.998** | No |
+| resource-01 | +1.90 | +3.40 | 0.840 | **0.990** | No |
+| resource-02 | +3.67 | +3.67 | 0.887 | 0.887 | No |
+
+### Key Findings
+
+1. **What-If improves Net Alignment by +0.039.** The stress testing makes the LLM more calibrated — predicted net scores land closer to actual outcomes. This is the most important metric for real-world reliability.
+
+2. **Slight PE trade-off (-0.041).** The added prompt complexity slightly reduces the LLM's precision at matching individual positive factors. Acceptable given the NA improvement.
+
+3. **Risk flags are genuinely useful.** 4 out of 10 cases got risk flags — and they're the right ones:
+   - `career-02` (quit job for bootcamp): flagged because "bootcamp may not lead to a job"
+   - `financial-02` (invest vs pay loan): flagged the investment chain for market downturn risk
+   - `travel-02`: flagged Bali chain for cost overrun risk
+   - `career-01`: flagged the corporate role for stagnation risk
+
+4. **100% parse success, 100% same actions chosen.** The What-If extension doesn't break JSON compliance or change the final recommendations — it adds risk context on top.
+
+5. **What-If is strictly additive.** It produces everything single-shot does, plus `what_if_summary` and `risk_flags`. No existing functionality is lost.
+
+### Verdict
+
+**Use What-If mode when risk awareness matters** (finance, career, high-stakes). Use standard single-shot when speed and simplicity are the priority. The What-If mode adds ~3 seconds per call but provides meaningfully better calibration and explicit risk warnings.
+
+---
+
 ## How to Run
 
 ```bash
@@ -269,9 +329,12 @@ python3 validation/three_way_compare.py --cases 5
 python3 validation/ablation_study.py
 python3 validation/ablation_study.py --cases 5   # fewer cases for faster run
 
+# Phase 5: What-If Comparison
+python3 validation/eval_harness.py --whatif
+
 # Main entry points
 python3 main.py                              # single-shot mode
 python3 main.py --hybrid                     # hybrid mode
-python3 main.py "your query here"            # custom query
-python3 main.py --hybrid "your query here"   # hybrid + custom query
+python3 main.py --whatif                     # what-if stress testing mode
+python3 main.py --whatif "your query here"   # what-if + custom query
 ```

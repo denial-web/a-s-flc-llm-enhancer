@@ -21,6 +21,8 @@ from inference.fg_cot_prompt import (
     ANALYSIS_USER_TEMPLATE,
     FG_COT_SYSTEM_PROMPT,
     FG_COT_USER_TEMPLATE,
+    WHATIF_SYSTEM_PROMPT,
+    WHATIF_USER_TEMPLATE,
 )
 
 
@@ -169,3 +171,19 @@ class A_S_FLC_Wrapper:
             reasoning_steps=reasoning,
             stability_score=best_stability,
         )
+
+    def decide_whatif(self, query: str) -> DecisionOutput:
+        """What-If mode: single-shot FG-CoT extended with stress testing.
+
+        Same as decide() but uses the WHATIF_SYSTEM_PROMPT which instructs the
+        LLM to run a what-if scenario on the top 2 chains and flag high-risk
+        options where the net drops >15% under worst-case conditions.
+        """
+        system_prompt = WHATIF_SYSTEM_PROMPT.format(
+            buffer_delta=self.config.buffer_delta,
+            epsilon=self.config.epsilon,
+        )
+        user_prompt = WHATIF_USER_TEMPLATE.format(query=query)
+        raw = self._call_llm(system_prompt, user_prompt)
+        cleaned = _extract_json(raw)
+        return DecisionOutput.model_validate(json.loads(cleaned))

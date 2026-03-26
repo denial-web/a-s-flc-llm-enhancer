@@ -40,6 +40,14 @@ class DecisionOutput(BaseModel):
         le=1.0,
         description="How stable the net score is after LCDI loops (0-1)",
     )
+    what_if_summary: Optional[str] = Field(
+        default=None,
+        description="What-if stress test result on the top chain",
+    )
+    risk_flags: List[str] = Field(
+        default_factory=list,
+        description="Risk warnings from what-if analysis",
+    )
 
 
 class EventNode(BaseModel):

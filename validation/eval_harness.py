@@ -24,7 +24,12 @@ from validation.utils import (
 )
 
 
-def run_eval(config: A_S_FLC_Config, max_cases: Optional[int] = None, hybrid: bool = False) -> List[Dict[str, Any]]:
+def run_eval(
+    config: A_S_FLC_Config,
+    max_cases: Optional[int] = None,
+    hybrid: bool = False,
+    whatif: bool = False,
+) -> List[Dict[str, Any]]:
     if not check_api_key(config):
         sys.exit(1)
 
@@ -33,7 +38,12 @@ def run_eval(config: A_S_FLC_Config, max_cases: Optional[int] = None, hybrid: bo
     if max_cases:
         cases = cases[:max_cases]
 
-    mode_label = "hybrid" if hybrid else "single-shot"
+    if whatif:
+        mode_label = "what-if"
+    elif hybrid:
+        mode_label = "hybrid"
+    else:
+        mode_label = "single-shot"
     print(f"Mode: {mode_label}")
 
     results = []
@@ -42,7 +52,12 @@ def run_eval(config: A_S_FLC_Config, max_cases: Optional[int] = None, hybrid: bo
         print(f"\n[{i}/{len(cases)}] {case['id']}: {query[:60]}...")
 
         try:
-            decision = wrapper.decide_hybrid(query) if hybrid else wrapper.decide(query)
+            if whatif:
+                decision = wrapper.decide_whatif(query)
+            elif hybrid:
+                decision = wrapper.decide_hybrid(query)
+            else:
+                decision = wrapper.decide(query)
             metrics = evaluate_decision(
                 decision,
                 ground_truth_positives=case["ground_truth_positives"],
@@ -56,11 +71,18 @@ def run_eval(config: A_S_FLC_Config, max_cases: Optional[int] = None, hybrid: bo
                 "predicted_net": decision.breakdown.net,
                 "metrics": metrics,
             }
+            if whatif:
+                result["what_if_summary"] = decision.what_if_summary
+                result["risk_flags"] = decision.risk_flags
             print(f"  Action: {decision.chosen_action[:50]}")
             print(f"  Metrics: pe={metrics['positive_exactness']:.3f}  "
                   f"na={metrics['net_alignment']:.3f}  "
                   f"regret={metrics['chain_regret']:.3f}  "
                   f"stable={metrics['loop_stable']}")
+            if whatif and decision.what_if_summary:
+                print(f"  What-If: {decision.what_if_summary[:80]}")
+            if whatif and decision.risk_flags:
+                print(f"  Risk flags: {decision.risk_flags}")
         except Exception as e:
             result = {
                 "case_id": case["id"],
@@ -131,14 +153,20 @@ def print_summary(results: List[Dict[str, Any]]):
 def main():
     max_cases = None
     hybrid = "--hybrid" in sys.argv
+    whatif = "--whatif" in sys.argv
     if "--cases" in sys.argv:
         idx = sys.argv.index("--cases")
         max_cases = int(sys.argv[idx + 1])
 
     config = A_S_FLC_Config()
-    results = run_eval(config, max_cases, hybrid=hybrid)
+    results = run_eval(config, max_cases, hybrid=hybrid, whatif=whatif)
     print_summary(results)
-    suffix = "eval_hybrid" if hybrid else "eval_harness"
+    if whatif:
+        suffix = "eval_whatif"
+    elif hybrid:
+        suffix = "eval_hybrid"
+    else:
+        suffix = "eval_harness"
     save_results(results, suffix)
 
 

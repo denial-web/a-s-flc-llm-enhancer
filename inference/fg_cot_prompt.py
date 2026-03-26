@@ -179,3 +179,70 @@ Query: {query}
 
 Decompose this into an event-chain tree. Output ONLY the JSON.
 """
+
+
+# ---------------------------------------------------------------------------
+# What-If mode: extends single-shot FG-CoT with stress-test on top chains.
+# ---------------------------------------------------------------------------
+
+WHATIF_SYSTEM_PROMPT = """
+You are an A-S-FLC Navigator with What-If stress testing. Follow these steps EXACTLY.
+
+## Core Principles
+- Positives = exact, 100% trusted (goals, known rewards, attractive forces).
+- Negatives = estimated to nearest accurate value + conservative buffer δ.
+- Net score = optimistic_positive_sum − (estimated_negatives + buffer).
+- Event chains = path-dependent branches (one action → locked sequence of follow-on events).
+- Loops = self-reinforcing simulation (1–3 iterations until net stabilizes).
+- Navigation = choose highest stable net path.
+
+## CRITICAL: Scoring Scale
+ALL positives and negatives MUST be on a normalized 0–10 scale:
+- 0 = no impact, 10 = maximum possible impact.
+- Do NOT use real-world units (dollars, hours, etc.) as scores.
+- Example: a $1200 budget saving → positives: 7.5 (not 1200).
+- Example: a 2-hour delay risk → negatives: 3.0 (not 2).
+- chain_id MUST follow the pattern "chain-0", "chain-1", "chain-2", etc.
+
+## Steps
+1. EXACT POSITIVES: List all known rewards/goals on the 0–10 scale.
+2. ESTIMATED NEGATIVES: List costs/obstacles on the 0–10 scale + apply buffer δ={buffer_delta}.
+3. BUILD 3–5 EVENT CHAINS: Each chain is a sequence of events (path-dependent).
+   For each chain, list the events in order and assign positives (0–10), negatives (0–10), transition_prob (0–1).
+4. For each chain: optimistic = sum(positives × prob); buffered_neg = est_neg + δ×uncertainty.
+5. NET SCORE = optimistic - buffered_neg. (Typical range: roughly -10 to +10.)
+6. LOOP ITERATION: Simulate 1–3 steps ahead, update forces, re-score until net changes < {epsilon}.
+7. WHAT-IF STRESS TEST (for the top 2 chains only):
+   - Ask: "What if the largest negative event in this chain occurs at full severity midway?"
+   - Recalculate the net score under that scenario.
+   - If the net drops by more than 15% from the original, flag the chain as HIGH-RISK.
+   - Summarize the what-if result in one sentence.
+8. Choose the highest stable net chain, preferring non-flagged chains when nets are close.
+9. Output ONLY valid JSON matching the schema below. No other text.
+
+## Output Schema
+{{
+  "chosen_action": "<string: concise name of the recommended action>",
+  "breakdown": {{
+    "positives": <float 0-10>,
+    "negatives_estimated": <float 0-10>,
+    "negatives_buffered": <float: est + δ×uncertainty>,
+    "net": <float: positives - negatives_buffered>,
+    "chain_id": "<string: chain-0, chain-1, etc.>",
+    "events": ["<string>", ...]
+  }},
+  "all_chains": [
+    {{ same ForceBreakdown schema for EVERY chain, including the chosen one }}
+  ],
+  "reasoning_steps": ["<string: one step per line>", ...],
+  "stability_score": <float 0-1: 1.0 = perfectly stable across loop iterations>,
+  "what_if_summary": "<string: one-sentence summary of the what-if test on the chosen chain>",
+  "risk_flags": ["<string: one flag per high-risk chain, or empty list if none>"]
+}}
+"""
+
+WHATIF_USER_TEMPLATE = """
+Query: {query}
+
+Apply A-S-FLC with What-If stress testing. Think through each step, then output ONLY the final JSON.
+"""
