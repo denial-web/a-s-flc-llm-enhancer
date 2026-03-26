@@ -96,6 +96,22 @@ Full results in [VALIDATION_RESULTS.md](VALIDATION_RESULTS.md). Summary:
 | Multiple chains | **Regret spikes to 0.26** — model picks suboptimal actions without comparison |
 | Entire framework (Standard CoT) | Lowest positive exactness, no structured output |
 
+## Use Cases
+
+### Tested & Validated
+
+- **Planning decisions** — travel, budget allocation, resource trade-offs (10 test scenarios across 5 categories)
+- **Risk-aware option comparison** — adversarial trap detection where buffered negatives flip the naive ranking
+- **Structured LLM output** — every decision includes scored chains, reasoning trace, and stability metric
+- **Evaluation harness** — reusable metrics (PE, NA, regret, loop stability) for benchmarking any reasoning method
+
+### Potential Extensions
+
+- **Agent planner node** — drop the FG-CoT prompt into LangChain/LangGraph/CrewAI agents as the reasoning step (LangGraph skeleton included in `agent/`)
+- **RLHF/GRPO fine-tuning** — use the signed reward shaper (`training/reward_shaper.py`) to train models with asymmetric reward signals
+- **Combine with ToT or ReAct** — use A-S-FLC net scoring as the evaluator inside deeper search methods
+- **High-stakes domains** — finance, security, compliance, medical — where over-optimism on positives is dangerous (needs domain-specific testing)
+
 ## Project Structure
 
 ```
