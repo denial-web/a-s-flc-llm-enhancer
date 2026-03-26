@@ -36,11 +36,12 @@ Structured JSON Decision
     (chosen action, all chains with scores, reasoning trace)
 ```
 
-## Two Modes
+## Three Modes
 
 | Mode | How it works | Best for |
 |---|---|---|
 | **Single-shot** | LLM does everything in one call via FG-CoT prompt | Speed, simplicity |
+| **What-If** | Single-shot + worst-case stress test on top chains | Finance, career, high-stakes decisions |
 | **Hybrid** | LLM generates event tree → Python engine scores deterministically | Auditability, rigor |
 
 ## Quick Start
@@ -49,10 +50,13 @@ Structured JSON Decision
 pip install -r requirements.txt
 export GROQ_API_KEY=your-key    # or OPENAI_API_KEY / ANTHROPIC_API_KEY
 
-# Single-shot mode (default)
+# Single-shot mode (default — fast)
 python main.py "Should I invest in index funds or crypto with $10k?"
 
-# Hybrid mode
+# What-If mode (recommended for high-stakes decisions)
+python main.py --whatif "Should I quit my job to pursue a coding bootcamp?"
+
+# Hybrid mode (deterministic scoring)
 python main.py --hybrid "Plan my trip from Singapore to Tokyo on a $1200 budget"
 ```
 
