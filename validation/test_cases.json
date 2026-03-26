@@ -1,0 +1,72 @@
+[
+  {
+    "id": "travel-01",
+    "query": "Plan my trip from Singapore to Tokyo on a $1200 budget with max comfort.",
+    "ground_truth_positives": 8.5,
+    "actual_outcome_net": 5.5,
+    "category": "travel"
+  },
+  {
+    "id": "travel-02",
+    "query": "I have 5 days off and $800. Should I go to Bali or stay local in Bangkok? I want relaxation and good food.",
+    "ground_truth_positives": 7.0,
+    "actual_outcome_net": 4.0,
+    "category": "travel"
+  },
+  {
+    "id": "financial-01",
+    "query": "I have $10,000 to invest. Should I put it in index funds, crypto, or a high-yield savings account? I need the money in 2 years.",
+    "ground_truth_positives": 6.0,
+    "actual_outcome_net": 4.5,
+    "category": "financial"
+  },
+  {
+    "id": "financial-02",
+    "query": "Should I pay off my $15k student loan early at 4.5% interest or invest the extra $500/month in the stock market?",
+    "ground_truth_positives": 5.5,
+    "actual_outcome_net": 3.8,
+    "category": "financial"
+  },
+  {
+    "id": "career-01",
+    "query": "I got two job offers: a $120k remote role at a startup or a $95k hybrid role at a big tech company with better benefits. Which should I take?",
+    "ground_truth_positives": 8.0,
+    "actual_outcome_net": 5.0,
+    "category": "career"
+  },
+  {
+    "id": "career-02",
+    "query": "Should I quit my stable job to pursue a 3-month coding bootcamp? I have 6 months of savings and hate my current role.",
+    "ground_truth_positives": 7.5,
+    "actual_outcome_net": 4.5,
+    "category": "career"
+  },
+  {
+    "id": "product-01",
+    "query": "We have a SaaS product with 500 users. Should we launch a mobile app, add an API for integrations, or focus on reducing churn with better onboarding?",
+    "ground_truth_positives": 7.0,
+    "actual_outcome_net": 4.0,
+    "category": "product"
+  },
+  {
+    "id": "product-02",
+    "query": "Our e-commerce conversion rate is 1.8%. Should we invest in A/B testing the checkout flow, adding social proof, or offering free shipping over $50?",
+    "ground_truth_positives": 6.5,
+    "actual_outcome_net": 4.2,
+    "category": "product"
+  },
+  {
+    "id": "resource-01",
+    "query": "Our team of 6 has a tight Q2 deadline. Should we hire 2 contractors, ask the team to work overtime, or cut scope by 30%?",
+    "ground_truth_positives": 6.0,
+    "actual_outcome_net": 3.5,
+    "category": "resource"
+  },
+  {
+    "id": "resource-02",
+    "query": "We have $50k budget for infrastructure. Should we migrate to Kubernetes, stay on EC2 with auto-scaling, or go serverless with Lambda?",
+    "ground_truth_positives": 7.0,
+    "actual_outcome_net": 4.8,
+    "category": "resource"
+  }
+]
