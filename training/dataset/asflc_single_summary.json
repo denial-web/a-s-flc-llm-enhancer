@@ -1,0 +1,27 @@
+{
+  "mode": "single",
+  "total_queries": 180,
+  "successful": 178,
+  "failed": 2,
+  "categories": [
+    "career",
+    "legal",
+    "health",
+    "daily_life",
+    "relationship",
+    "retirement",
+    "parenting",
+    "travel",
+    "startup",
+    "safety",
+    "technology",
+    "education",
+    "housing",
+    "crisis",
+    "environment",
+    "finance",
+    "product"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_single_pairs.jsonl"
+}
