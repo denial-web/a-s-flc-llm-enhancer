@@ -15,6 +15,9 @@ build/
 
 validation/results/*.json
 
+# Dataset generation checkpoints (local resume state)
+training/dataset/_checkpoint*.json
+
 *.log
 .DS_Store
 Thumbs.db

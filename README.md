@@ -38,13 +38,18 @@ Structured JSON Decision
     (chosen action, all chains with scores, reasoning trace)
 ```
 
-## Three Modes
+## Modes
 
 | Mode | How it works | Best for |
 |---|---|---|
 | **Single-shot** | LLM does everything in one call via FG-CoT prompt | Speed, simplicity |
 | **What-If** | Single-shot + worst-case stress test on top chains | Finance, career, high-stakes decisions |
 | **Hybrid** | LLM generates event tree → Python engine scores deterministically | Auditability, rigor |
+| **Security** | A-S-FLC + `risk_level`, `threat_type`, `decision_route` (LOCAL/BLOCK) | Scams, phishing, trust questions |
+
+**Policy Guard:** By default, `main.py` runs a deterministic **Policy Guard** (`core/policy_guard.py`) *before* the LLM to block obvious credential-harvest and common scam hooks. Use `--no-guard` only for debugging.
+
+**Roadmap / fine-tuning:** See [`ROADMAP.md`](ROADMAP.md) and [`SECURITY_ADAPTER.md`](SECURITY_ADAPTER.md).
 
 ## Quick Start
 
@@ -60,6 +65,9 @@ python main.py --whatif "Should I quit my job to pursue a coding bootcamp?"
 
 # Hybrid mode (deterministic scoring)
 python main.py --hybrid "Plan my trip from Singapore to Tokyo on a $1200 budget"
+
+# Security mode (threat classification + A-S-FLC)
+python main.py --security "Email says my PayPal is limited — click link to verify. Safe?"
 ```
 
 ### Example Output (abbreviated)

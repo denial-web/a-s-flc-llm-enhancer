@@ -1,0 +1,25 @@
+{
+  "description": "Held-out example IDs for fine-tune evaluation. Do not include these rows in the training split.",
+  "eval_ids": [
+    "travel-001",
+    "travel-010",
+    "finance-005",
+    "finance-010",
+    "career-003",
+    "career-010",
+    "product-005",
+    "product-010",
+    "health-005",
+    "education-005",
+    "housing-005",
+    "tech-005",
+    "relationship-005",
+    "daily-005",
+    "startup-005",
+    "safety-005",
+    "parenting-005",
+    "environ-003",
+    "retire-003",
+    "legal-003"
+  ]
+}

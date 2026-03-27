@@ -6,7 +6,7 @@
 # - Loops = self-reinforcing simulation (1–3 iterations until net stabilizes).
 # - Navigation = choose highest stable net path.
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -47,6 +47,35 @@ class DecisionOutput(BaseModel):
     risk_flags: List[str] = Field(
         default_factory=list,
         description="Risk warnings from what-if analysis",
+    )
+    # Security / routing extensions (optional; fine-tuning stages 1b+)
+    risk_level: Optional[str] = Field(
+        default=None,
+        description="SAFE | SUSPICIOUS | DANGEROUS",
+    )
+    threat_type: Optional[str] = Field(
+        default=None,
+        description="e.g. safe, phishing, scam, injection, impersonation, fraud",
+    )
+    decision_route: Optional[str] = Field(
+        default=None,
+        description="LOCAL | BLOCK | MEMORY_STORE | MEMORY_RETRIEVE | ESCALATE (Stage 2+)",
+    )
+    memory_action: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description='Stage 2: {"op": store|retrieve|skip, "key": str, "reason": str}',
+    )
+    knowledge_request: Optional[str] = Field(
+        default=None,
+        description="One-sentence missing fact for large-model lookup, or null",
+    )
+    escalation_reason: Optional[str] = Field(
+        default=None,
+        description="low_confidence | unknown_threat | complex_reasoning | null",
+    )
+    source: Optional[str] = Field(
+        default="small",
+        description="small | large_knowledge",
     )
 
 

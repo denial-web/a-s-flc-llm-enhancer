@@ -1,0 +1,11 @@
+{
+  "mode": "security",
+  "total_queries": 200,
+  "successful": 200,
+  "failed": 0,
+  "categories": [
+    "security"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_security_pairs.jsonl"
+}

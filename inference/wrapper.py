@@ -21,6 +21,8 @@ from inference.fg_cot_prompt import (
     ANALYSIS_USER_TEMPLATE,
     FG_COT_SYSTEM_PROMPT,
     FG_COT_USER_TEMPLATE,
+    SECURITY_SYSTEM_PROMPT,
+    SECURITY_USER_TEMPLATE,
     WHATIF_SYSTEM_PROMPT,
     WHATIF_USER_TEMPLATE,
 )
@@ -184,6 +186,17 @@ class A_S_FLC_Wrapper:
             epsilon=self.config.epsilon,
         )
         user_prompt = WHATIF_USER_TEMPLATE.format(query=query)
+        raw = self._call_llm(system_prompt, user_prompt)
+        cleaned = _extract_json(raw)
+        return DecisionOutput.model_validate(json.loads(cleaned))
+
+    def decide_security(self, query: str) -> DecisionOutput:
+        """Security mode: A-S-FLC + risk_level, threat_type, decision_route (LOCAL/BLOCK)."""
+        system_prompt = SECURITY_SYSTEM_PROMPT.format(
+            buffer_delta=self.config.buffer_delta,
+            epsilon=self.config.epsilon,
+        )
+        user_prompt = SECURITY_USER_TEMPLATE.format(query=query)
         raw = self._call_llm(system_prompt, user_prompt)
         cleaned = _extract_json(raw)
         return DecisionOutput.model_validate(json.loads(cleaned))

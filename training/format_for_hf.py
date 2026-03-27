@@ -13,7 +13,7 @@ Usage:
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -75,9 +75,23 @@ def save_jsonl(data: List[Dict], output_path: Path):
     print(f"  Saved {len(data)} examples to {output_path}")
 
 
-def format_dataset(input_file: Path):
-    pairs = load_pairs(input_file)
-    print(f"Loaded {len(pairs)} pairs from {input_file}")
+def load_all_pair_files() -> List[Dict[str, Any]]:
+    """Merge every asflc_*_pairs.jsonl under dataset/ (dedupe by id, last wins)."""
+    merged: Dict[str, Dict[str, Any]] = {}
+    for path in sorted(DATASET_DIR.glob("asflc_*_pairs.jsonl")):
+        for row in load_pairs(path):
+            merged[row["id"]] = row
+    return list(merged.values())
+
+
+def format_dataset(input_file: Optional[Path] = None, merge_all: bool = False):
+    if merge_all:
+        pairs = load_all_pair_files()
+        print(f"Loaded {len(pairs)} merged pairs from asflc_*_pairs.jsonl")
+    else:
+        assert input_file is not None
+        pairs = load_pairs(input_file)
+        print(f"Loaded {len(pairs)} pairs from {input_file}")
 
     categories = {}
     for p in pairs:
@@ -150,7 +164,11 @@ This catches "trap" decisions where uncertain downsides are underestimated.
   }},
   "all_chains": ["..."],
   "reasoning_steps": ["..."],
-  "stability_score": "float 0-1"
+  "stability_score": "float 0-1",
+  "risk_level": "SAFE | SUSPICIOUS | DANGEROUS (security mode)",
+  "threat_type": "string or null",
+  "decision_route": "LOCAL | BLOCK (security mode)",
+  "source": "small | large_knowledge"
 }}
 ```
 
@@ -177,6 +195,12 @@ GitHub: [denial-web/a-s-flc-llm-enhancer](https://github.com/denial-web/a-s-flc-
 
 
 def main():
+    merge_all = "--all" in sys.argv
+
+    if merge_all:
+        format_dataset(merge_all=True)
+        return
+
     input_file = DATASET_DIR / "asflc_single_pairs.jsonl"
 
     if "--input" in sys.argv:
@@ -188,7 +212,7 @@ def main():
         print(f"Run 'python training/generate_dataset.py' first to generate pairs.")
         sys.exit(1)
 
-    format_dataset(input_file)
+    format_dataset(input_file=input_file, merge_all=False)
 
 
 if __name__ == "__main__":
