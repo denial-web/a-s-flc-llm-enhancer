@@ -96,6 +96,6 @@ See `core/types.py` for the canonical Pydantic schema.
 | `training/query_bank.json` | Query bank |
 | `training/generate_dataset.py` | single / whatif / security modes |
 | `training/eval_split.json` | Held-out eval IDs |
-| `training/finetune_colab.ipynb` | Colab fine-tuning |
+| `training/finetune_colab.ipynb` | Colab fine-tuning (dataset load, eval split, SFTTrainer, save LoRA) |
 | `SECURITY_ADAPTER.md` | Security + A-S-FLC architecture |
 | `ROADMAP.md` | This file |
