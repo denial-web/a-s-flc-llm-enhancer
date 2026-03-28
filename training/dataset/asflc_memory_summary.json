@@ -1,0 +1,11 @@
+{
+  "mode": "memory",
+  "total_queries": 90,
+  "successful": 90,
+  "failed": 0,
+  "categories": [
+    "memory"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_memory_pairs.jsonl"
+}

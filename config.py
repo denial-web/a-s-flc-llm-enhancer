@@ -6,7 +6,17 @@
 # - Loops = self-reinforcing simulation (1–3 iterations until net stabilizes).
 # - Navigation = choose highest stable net path.
 
+import os
 from dataclasses import dataclass
+from pathlib import Path
+
+_env_file = Path(__file__).resolve().parent / ".env"
+if _env_file.exists():
+    for line in _env_file.read_text().splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, _, value = line.partition("=")
+            os.environ.setdefault(key.strip(), value.strip())
 
 
 @dataclass
