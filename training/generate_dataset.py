@@ -1,13 +1,14 @@
 """A-S-FLC Training Dataset Generator
 
 Runs queries from the query bank through the A-S-FLC framework (single-shot,
-what-if, and security modes) and saves input/output pairs for fine-tuning.
+what-if, security, and memory modes) and saves input/output pairs for fine-tuning.
 
 Usage:
     python training/generate_dataset.py
     python training/generate_dataset.py --limit 50
     python training/generate_dataset.py --mode whatif
     python training/generate_dataset.py --mode security
+    python training/generate_dataset.py --mode memory
     python training/generate_dataset.py --resume  # continue from last checkpoint
 """
 
@@ -24,6 +25,7 @@ from inference.wrapper import A_S_FLC_Wrapper
 
 QUERY_BANK = Path(__file__).resolve().parent / "query_bank.json"
 SECURITY_BANK = Path(__file__).resolve().parent / "security_query_bank.json"
+MEMORY_BANK = Path(__file__).resolve().parent / "memory_query_bank.json"
 OUTPUT_DIR = Path(__file__).resolve().parent / "dataset"
 
 
@@ -39,6 +41,9 @@ def load_queries(
 ) -> List[Dict[str, Any]]:
     if mode == "security":
         with open(SECURITY_BANK) as f:
+            queries = json.load(f)
+    elif mode == "memory":
+        with open(MEMORY_BANK) as f:
             queries = json.load(f)
     else:
         with open(QUERY_BANK) as f:
@@ -80,6 +85,8 @@ def generate_pair(
             result = wrapper.decide_whatif(query)
         elif mode == "security":
             result = wrapper.decide_security(query)
+        elif mode == "memory":
+            result = wrapper.decide_memory(query)
         else:
             result = wrapper.decide(query)
 
@@ -112,7 +119,7 @@ def generate_dataset(
     wrapper = A_S_FLC_Wrapper(config)
     queries = load_queries(limit, mode=mode)
 
-    ck_mode = mode if mode in ("security", "whatif", "single") else "single"
+    ck_mode = mode if mode in ("security", "whatif", "single", "memory") else "single"
     completed = load_checkpoint(ck_mode) if resume else set()
     remaining = [q for q in queries if q["id"] not in completed]
 
@@ -189,6 +196,9 @@ def main():
 
     if "--security" in sys.argv:
         mode = "security"
+
+    if "--memory" in sys.argv:
+        mode = "memory"
 
     generate_dataset(limit=limit, mode=mode, resume=resume)
 

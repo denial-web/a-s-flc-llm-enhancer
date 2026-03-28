@@ -167,7 +167,10 @@ This catches "trap" decisions where uncertain downsides are underestimated.
   "stability_score": "float 0-1",
   "risk_level": "SAFE | SUSPICIOUS | DANGEROUS (security mode)",
   "threat_type": "string or null",
-  "decision_route": "LOCAL | BLOCK (security mode)",
+  "decision_route": "LOCAL | BLOCK | MEMORY_STORE | MEMORY_RETRIEVE | ESCALATE",
+  "memory_action": {{"op": "store|retrieve|skip", "key": "str", "reason": "str"}},
+  "knowledge_request": "string or null",
+  "escalation_reason": "string or null",
   "source": "small | large_knowledge"
 }}
 ```

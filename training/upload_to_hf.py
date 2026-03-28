@@ -21,6 +21,8 @@ FILES_TO_UPLOAD = [
     "asflc_instruction_format.jsonl",
     "asflc_single_pairs.jsonl",
     "asflc_security_pairs.jsonl",
+    "asflc_memory_pairs.jsonl",
+    "distillation_chat_format.jsonl",
     "reward_shaper_eval.json",
 ]
 
