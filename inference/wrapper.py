@@ -22,6 +22,8 @@ from inference.fg_cot_prompt import (
     ANALYSIS_USER_TEMPLATE,
     FG_COT_SYSTEM_PROMPT,
     FG_COT_USER_TEMPLATE,
+    KHMER_SYSTEM_PROMPT,
+    KHMER_USER_TEMPLATE,
     MEMORY_CONTEXT_TEMPLATE,
     MEMORY_SYSTEM_PROMPT,
     MEMORY_USER_TEMPLATE,
@@ -266,6 +268,17 @@ class A_S_FLC_Wrapper:
 
         return result
 
+    def decide_khmer(self, query: str) -> DecisionOutput:
+        """Khmer bilingual mode: Khmer input, Khmer text in output fields."""
+        system_prompt = KHMER_SYSTEM_PROMPT.format(
+            buffer_delta=self.config.buffer_delta,
+            epsilon=self.config.epsilon,
+        )
+        user_prompt = KHMER_USER_TEMPLATE.format(query=query)
+        raw = self._call_llm(system_prompt, user_prompt)
+        cleaned = _extract_json(raw)
+        return DecisionOutput.model_validate(json.loads(cleaned))
+
     def _maybe_escalate(
         self,
         query: str,
@@ -335,6 +348,8 @@ class A_S_FLC_Wrapper:
             result = self.decide_hybrid(query)
         elif mode == "memory":
             result = self.decide_memory(query, memory_store=memory_store)
+        elif mode == "khmer":
+            result = self.decide_khmer(query)
         else:
             result = self.decide(query)
 

@@ -74,22 +74,22 @@ def get_config_for_device(tier: str = "high_end") -> InferenceConfig:
     config = InferenceConfig()
 
     if target.ram_gb <= 4.0:
-        config.n_ctx = 1024
+        config.n_ctx = 2048
         config.n_batch = 256
         config.n_threads = 2
-        config.max_tokens = 512
+        config.max_tokens = 768
         config.model_path = "asflc-qwen2.5-1.5b-q4_0.gguf"
     elif target.ram_gb <= 6.0:
-        config.n_ctx = 2048
+        config.n_ctx = 4096
         config.n_batch = 512
         config.n_threads = 4
-        config.max_tokens = 768
+        config.max_tokens = 1024
         config.model_path = "asflc-qwen2.5-1.5b-q4_k_m.gguf"
     else:
         config.n_ctx = 4096
         config.n_batch = 512
         config.n_threads = 4
-        config.max_tokens = 1024
+        config.max_tokens = 1536
         config.model_path = "asflc-qwen2.5-1.5b-q4_k_m.gguf"
 
     return config

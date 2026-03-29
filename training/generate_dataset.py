@@ -26,6 +26,7 @@ from inference.wrapper import A_S_FLC_Wrapper
 QUERY_BANK = Path(__file__).resolve().parent / "query_bank.json"
 SECURITY_BANK = Path(__file__).resolve().parent / "security_query_bank.json"
 MEMORY_BANK = Path(__file__).resolve().parent / "memory_query_bank.json"
+KHMER_BANK = Path(__file__).resolve().parent / "khmer_query_bank.json"
 OUTPUT_DIR = Path(__file__).resolve().parent / "dataset"
 
 
@@ -44,6 +45,9 @@ def load_queries(
             queries = json.load(f)
     elif mode == "memory":
         with open(MEMORY_BANK) as f:
+            queries = json.load(f)
+    elif mode == "khmer":
+        with open(KHMER_BANK) as f:
             queries = json.load(f)
     else:
         with open(QUERY_BANK) as f:
@@ -87,6 +91,8 @@ def generate_pair(
             result = wrapper.decide_security(query)
         elif mode == "memory":
             result = wrapper.decide_memory(query)
+        elif mode == "khmer":
+            result = wrapper.decide_khmer(query)
         else:
             result = wrapper.decide(query)
 
@@ -119,7 +125,7 @@ def generate_dataset(
     wrapper = A_S_FLC_Wrapper(config)
     queries = load_queries(limit, mode=mode)
 
-    ck_mode = mode if mode in ("security", "whatif", "single", "memory") else "single"
+    ck_mode = mode if mode in ("security", "whatif", "single", "memory", "khmer") else "single"
     completed = load_checkpoint(ck_mode) if resume else set()
     remaining = [q for q in queries if q["id"] not in completed]
 
@@ -199,6 +205,9 @@ def main():
 
     if "--memory" in sys.argv:
         mode = "memory"
+
+    if "--khmer" in sys.argv:
+        mode = "khmer"
 
     generate_dataset(limit=limit, mode=mode, resume=resume)
 

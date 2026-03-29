@@ -1,0 +1,54 @@
+{
+  "high_end": {
+    "device": "Flagship 2024+ (iPhone 16 Pro, Galaxy S25 Ultra, Pixel 9 Pro)",
+    "config": {
+      "n_ctx": 4096,
+      "max_tokens": 1536,
+      "n_threads": 4
+    },
+    "results": [
+      {
+        "label": "basic_decision",
+        "mode": "single",
+        "avg_latency_ms": 3532.6,
+        "avg_tokens": 203.5,
+        "avg_tok_per_sec": 57.6,
+        "valid_rate": 1.0
+      },
+      {
+        "label": "phishing_check",
+        "mode": "security",
+        "avg_latency_ms": 3317.9,
+        "avg_tokens": 175.0,
+        "avg_tok_per_sec": 52.7,
+        "valid_rate": 1.0
+      },
+      {
+        "label": "memory_store",
+        "mode": "memory",
+        "avg_latency_ms": 2571.3,
+        "avg_tokens": 121.5,
+        "avg_tok_per_sec": 47.3,
+        "valid_rate": 0.0
+      },
+      {
+        "label": "complex_multi_option",
+        "mode": "single",
+        "avg_latency_ms": 2904.4,
+        "avg_tokens": 151.5,
+        "avg_tok_per_sec": 52.2,
+        "valid_rate": 1.0
+      },
+      {
+        "label": "career_tradeoff",
+        "mode": "single",
+        "avg_latency_ms": 2235.1,
+        "avg_tokens": 137.5,
+        "avg_tok_per_sec": 61.5,
+        "valid_rate": 0.0
+      }
+    ],
+    "pass_count": 5,
+    "fail_count": 0
+  }
+}

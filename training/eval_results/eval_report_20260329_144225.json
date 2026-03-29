@@ -1,0 +1,278 @@
+{
+  "summary": {
+    "total": 20,
+    "valid_json": 15,
+    "blocked": 0,
+    "invalid": 5,
+    "valid_json_pct": 75.0,
+    "avg_quality": 0.678,
+    "avg_latency_ms": 6397.9,
+    "avg_tok_per_sec": 54.8,
+    "by_mode": {
+      "single": {
+        "total": 20,
+        "valid": 15,
+        "valid_pct": 75.0,
+        "avg_quality": 0.678
+      }
+    },
+    "tier": "high_end",
+    "timestamp": "2026-03-29 14:42:25"
+  },
+  "results": [
+    {
+      "id": "travel-001",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.8,
+      "latency_ms": 5755.5,
+      "tokens": 265,
+      "tok_per_sec": 46.0,
+      "issues": [
+        "only 1 chains (expected >= 2)",
+        "only 0 reasoning_steps (expected >= 2)"
+      ]
+    },
+    {
+      "id": "travel-010",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": false,
+      "quality_score": 0.0,
+      "latency_ms": 7278.9,
+      "tokens": 419,
+      "tok_per_sec": 57.6,
+      "issues": [
+        "Invalid JSON: Extra data: line 1 column 204 (char 203)"
+      ]
+    },
+    {
+      "id": "finance-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.9,
+      "latency_ms": 5170.0,
+      "tokens": 246,
+      "tok_per_sec": 47.6,
+      "issues": [
+        "only 1 chains (expected >= 2)"
+      ]
+    },
+    {
+      "id": "finance-010",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": false,
+      "quality_score": 0.0,
+      "latency_ms": 6289.3,
+      "tokens": 311,
+      "tok_per_sec": 49.4,
+      "issues": [
+        "Invalid JSON: Expecting ',' delimiter: line 1 column 216 (char 215)"
+      ]
+    },
+    {
+      "id": "career-003",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 1.0,
+      "latency_ms": 3686.5,
+      "tokens": 220,
+      "tok_per_sec": 59.7,
+      "issues": []
+    },
+    {
+      "id": "career-010",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.9,
+      "latency_ms": 4691.1,
+      "tokens": 308,
+      "tok_per_sec": 65.7,
+      "issues": [
+        "chosen chain_id 'chain-0' not found in all_chains"
+      ]
+    },
+    {
+      "id": "product-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.9,
+      "latency_ms": 6514.8,
+      "tokens": 423,
+      "tok_per_sec": 64.9,
+      "issues": [
+        "chosen chain_id 'chain-1' not found in all_chains"
+      ]
+    },
+    {
+      "id": "product-010",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": false,
+      "quality_score": 0.0,
+      "latency_ms": 7634.2,
+      "tokens": 504,
+      "tok_per_sec": 66.0,
+      "issues": [
+        "Invalid JSON: Extra data: line 1 column 225 (char 224)"
+      ]
+    },
+    {
+      "id": "health-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.75,
+      "latency_ms": 2770.7,
+      "tokens": 175,
+      "tok_per_sec": 63.2,
+      "issues": [
+        "net=4.9 doesn't match positives-negatives_buffered=3.90",
+        "only 0 reasoning_steps (expected >= 2)"
+      ]
+    },
+    {
+      "id": "education-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 1.0,
+      "latency_ms": 5393.8,
+      "tokens": 357,
+      "tok_per_sec": 66.2,
+      "issues": []
+    },
+    {
+      "id": "housing-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 1.0,
+      "latency_ms": 3900.1,
+      "tokens": 245,
+      "tok_per_sec": 62.8,
+      "issues": []
+    },
+    {
+      "id": "tech-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.8,
+      "latency_ms": 2757.5,
+      "tokens": 179,
+      "tok_per_sec": 64.9,
+      "issues": [
+        "chosen chain_id 'chain-0' not found in all_chains",
+        "only 0 reasoning_steps (expected >= 2)"
+      ]
+    },
+    {
+      "id": "relationship-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 1.0,
+      "latency_ms": 4666.7,
+      "tokens": 307,
+      "tok_per_sec": 65.8,
+      "issues": []
+    },
+    {
+      "id": "daily-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": false,
+      "quality_score": 0.0,
+      "latency_ms": 972.7,
+      "tokens": 61,
+      "tok_per_sec": 62.7,
+      "issues": [
+        "Schema validation failed: 1 validation error for DecisionOutput\nbreakdown\n  Field required [type=missing, input_value={'chosen_action': 'Wake u...oost', 'Improved mood']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing"
+      ]
+    },
+    {
+      "id": "startup-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 1.0,
+      "latency_ms": 5754.8,
+      "tokens": 270,
+      "tok_per_sec": 46.9,
+      "issues": []
+    },
+    {
+      "id": "safety-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.9,
+      "latency_ms": 4659.6,
+      "tokens": 177,
+      "tok_per_sec": 38.0,
+      "issues": [
+        "only 1 chains (expected >= 2)"
+      ]
+    },
+    {
+      "id": "parenting-005",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.8,
+      "latency_ms": 6250.6,
+      "tokens": 226,
+      "tok_per_sec": 36.2,
+      "issues": [
+        "only 1 chains (expected >= 2)",
+        "chosen chain_id 'chain-1' not found in all_chains"
+      ]
+    },
+    {
+      "id": "environ-003",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.9,
+      "latency_ms": 6157.7,
+      "tokens": 324,
+      "tok_per_sec": 52.6,
+      "issues": [
+        "chosen chain_id 'chain-0' not found in all_chains"
+      ]
+    },
+    {
+      "id": "retire-003",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": false,
+      "quality_score": 0.0,
+      "latency_ms": 32959.5,
+      "tokens": 1522,
+      "tok_per_sec": 46.2,
+      "issues": [
+        "Invalid JSON: Expecting ',' delimiter: line 1 column 748 (char 747)"
+      ]
+    },
+    {
+      "id": "legal-003",
+      "mode": "single",
+      "blocked": false,
+      "valid_json": true,
+      "quality_score": 0.9,
+      "latency_ms": 4694.2,
+      "tokens": 156,
+      "tok_per_sec": 33.2,
+      "issues": [
+        "only 1 chains (expected >= 2)"
+      ]
+    }
+  ]
+}

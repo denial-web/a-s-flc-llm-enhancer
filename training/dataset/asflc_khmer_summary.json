@@ -1,0 +1,15 @@
+{
+  "mode": "khmer",
+  "total_queries": 25,
+  "successful": 22,
+  "failed": 3,
+  "categories": [
+    "daily_life",
+    "career",
+    "finance",
+    "memory",
+    "security"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_khmer_pairs.jsonl"
+}

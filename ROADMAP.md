@@ -1,6 +1,6 @@
 # Smart Local LLM Roadmap — Making Small Models Smart with A-S-FLC
 
-Persistent reference for objectives and staged delivery. Last updated: 2026-03-28.
+Persistent reference for objectives and staged delivery. Last updated: 2026-03-29.
 
 ## Goal
 
@@ -117,11 +117,41 @@ See `core/types.py` for the canonical Pydantic schema.
 
 **Weaknesses:** Security and memory modes produce simplified JSON (not full DecisionOutput schema); long queries can truncate.
 
-**Next improvements:**
-- [ ] Add more security/memory examples with full DecisionOutput schema to training data.
-- [ ] Increase `max_new_tokens` for complex multi-option queries.
-- [ ] Run full 20-ID eval harness for precise valid-JSON percentage.
-- [ ] Test on actual mobile device (iPhone/Android).
+### Formal Eval Harness (20-ID held-out set)
+
+| Metric | Value |
+|--------|-------|
+| Valid JSON | 15/20 (75%) |
+| Avg Quality | 0.678 |
+| Avg Latency | 6.4s |
+| Avg Speed | 54.8 tok/s |
+
+Common failure modes: truncated JSON on long outputs (3/5), missing `breakdown` field (1/5), malformed JSON (1/5).
+
+### Performance Benchmark (high_end tier)
+
+| Query | Latency | Speed | Valid | Budget |
+|-------|---------|-------|-------|--------|
+| basic_decision | 3533ms | 57.6 tok/s | 100% | PASS |
+| phishing_check | 3318ms | 52.7 tok/s | 100% | PASS |
+| memory_store | 2571ms | 47.3 tok/s | 0% | PASS |
+| complex_multi_option | 2904ms | 52.2 tok/s | 100% | PASS |
+| career_tradeoff | 2235ms | 61.5 tok/s | 0% | PASS |
+
+All queries within 5s latency budget. All above 15 tok/s minimum.
+
+### Fixes Applied (2026-03-29)
+- [x] Mode-specific system prompts in training data (security/memory/single).
+- [x] Full schema in local inference prompts (was abbreviated).
+- [x] Bumped max_tokens: 1536 (high), 1024 (mid), 768 (low).
+- [x] Built eval harness: `training/eval_harness.py`.
+- [x] Built performance benchmark: `deployment/benchmark.py`.
+
+### Next: Re-train with improved data
+- [ ] Re-upload improved `asflc_chat_format.jsonl` to HuggingFace.
+- [ ] Re-train on Colab with mode-specific system prompts (expect ~85%+ valid JSON).
+- [ ] Re-export GGUF and re-run eval harness.
+- [ ] Add Khmer language support (Stage 5).
 
 ## Completed Milestones
 
@@ -130,10 +160,28 @@ See `core/types.py` for the canonical Pydantic schema.
 - [x] Upload expanded dataset to HuggingFace (468 examples).
 - [x] Export GGUF on Colab (Q4_K_M, 940MB).
 - [x] Test on-device inference with llama-cpp-python (53+ tok/s on Mac).
+- [x] Formal eval harness: 15/20 valid (75%), avg quality 0.678.
+- [x] Performance benchmark: all queries within latency/speed budgets.
+- [x] Fix mode-specific system prompts for security/memory training data.
+- [x] Full schema in local inference prompts.
+- [x] Bump max_tokens to 1536 for high-end tier.
+
+## Stage 5 — Khmer Language Support 🚧
+
+- ✅ Khmer query bank: `training/khmer_query_bank.json` (25 queries: finance, career, daily, security, memory).
+- ✅ Khmer prompts: `inference/fg_cot_prompt.py` (`KHMER_SYSTEM_PROMPT`, `KHMER_USER_TEMPLATE`).
+- ✅ Khmer inference: `wrapper.decide_khmer()`, `local_inference.py --mode khmer`.
+- ✅ Khmer dataset generation: `python training/generate_dataset.py --mode khmer`.
+- ✅ Mode-specific system prompts in training format (khmer uses Khmer-aware prompt).
+- ✅ Khmer eval IDs: `km-fin-003`, `km-car-003`, `km-sec-002` in eval_split.json.
+- [ ] Generate Khmer training pairs: `python training/generate_dataset.py --mode khmer`.
+- [ ] Re-format + re-upload dataset with Khmer examples.
+- [ ] Re-train on Colab with Khmer data included.
+- [ ] Eval Khmer valid-JSON rate and quality.
 
 ## What NOT to Build Yet
 
-- Anti-poisoning at scale, cross-user detection, Khmer-first training, full web UI.
+- Anti-poisoning at scale, cross-user detection, full web UI.
 
 ## File Map
 
@@ -150,7 +198,8 @@ See `core/types.py` for the canonical Pydantic schema.
 | `training/query_bank.json` | General query bank (178 queries) |
 | `training/security_query_bank.json` | Security query bank (200 queries) |
 | `training/memory_query_bank.json` | Memory/routing query bank (90 queries) |
-| `training/generate_dataset.py` | single / whatif / security / memory modes |
+| `training/khmer_query_bank.json` | Khmer bilingual query bank (25 queries) |
+| `training/generate_dataset.py` | single / whatif / security / memory / khmer modes |
 | `training/eval_split.json` | Held-out eval IDs |
 | `training/finetune_colab.ipynb` | Colab fine-tuning (dataset load, eval split, SFTTrainer, assistant-only loss, save LoRA) |
 | `training/format_for_hf.py` | Format + merge datasets for HuggingFace |
@@ -159,4 +208,6 @@ See `core/types.py` for the canonical Pydantic schema.
 | `deployment/mobile_config.py` | Device tiers, performance budgets |
 | `deployment/local_inference.py` | llama-cpp-python local runner |
 | `SECURITY_ADAPTER.md` | Security + A-S-FLC architecture |
+| `training/eval_harness.py` | Eval harness for held-out set |
+| `deployment/benchmark.py` | Performance benchmark vs mobile budgets |
 | `ROADMAP.md` | This file |

@@ -24,29 +24,65 @@ from core.policy_guard import evaluate_policy, format_block_message
 from core.response_validator import validate_json_string
 from deployment.mobile_config import InferenceConfig, get_config_for_device
 
+SYSTEM_SINGLE = (
+    "You are an A-S-FLC decision navigator. Analyze the query using "
+    "asymmetric signed force-loop-chain reasoning. Positives are exact "
+    "and trusted. Negatives are estimated with a conservative buffer. "
+    "Build 3-5 event chains, score each, loop until stable, and pick "
+    "the best. Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1}'
+)
+
+SYSTEM_SECURITY = (
+    "You are an A-S-FLC Security Navigator. Combine asymmetric force "
+    "reasoning with threat assessment. Positives = apparent benefits of "
+    "complying. Negatives = estimated costs/risks + conservative buffer. "
+    "Build 2-4 event chains (comply vs refuse/verify). Classify: "
+    "risk_level (SAFE/SUSPICIOUS/DANGEROUS), threat_type, decision_route "
+    "(LOCAL/BLOCK). Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1,'
+    '"risk_level":"SAFE|SUSPICIOUS|DANGEROUS","threat_type":"str|null",'
+    '"decision_route":"LOCAL|BLOCK","source":"small"}'
+)
+
+SYSTEM_MEMORY = (
+    "You are an A-S-FLC Navigator with Memory and Routing. Combine "
+    "asymmetric force reasoning with memory management. Decide "
+    "decision_route (LOCAL/MEMORY_STORE/MEMORY_RETRIEVE/BLOCK/ESCALATE) "
+    "and memory_action (store/retrieve/skip). Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1,'
+    '"decision_route":"LOCAL|MEMORY_STORE|MEMORY_RETRIEVE|BLOCK|ESCALATE",'
+    '"memory_action":{"op":"store|retrieve|skip","key":"str|null","reason":"str"},'
+    '"source":"small"}'
+)
+
+SYSTEM_KHMER = (
+    "You are an A-S-FLC Navigator that understands Khmer. "
+    "User query is in Khmer. chosen_action and reasoning_steps SHOULD be in Khmer. "
+    "Field names and chain_id stay in English. Output strict JSON matching: "
+    '{"chosen_action":"str (Khmer)","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str (Khmer)"],"stability_score":0-1,'
+    '"source":"small"}'
+)
+
+SYSTEM_PROMPTS = {
+    "single": SYSTEM_SINGLE,
+    "security": SYSTEM_SECURITY,
+    "memory": SYSTEM_MEMORY,
+    "khmer": SYSTEM_KHMER,
+}
+
 
 def _build_prompt(query: str, mode: str = "single") -> str:
     """Build a Qwen2.5 chat-template prompt for the given query and mode."""
-    if mode == "security":
-        system_msg = (
-            "You are an A-S-FLC Security Navigator. Combine asymmetric force "
-            "reasoning with threat assessment. Classify risk_level (SAFE/SUSPICIOUS/"
-            "DANGEROUS), threat_type, decision_route (LOCAL/BLOCK). Output strict JSON."
-        )
-    elif mode == "memory":
-        system_msg = (
-            "You are an A-S-FLC Navigator with Memory and Routing. Decide "
-            "decision_route and memory_action (store/retrieve/skip). Output strict JSON."
-        )
-    else:
-        system_msg = (
-            "You are an A-S-FLC decision navigator. Analyze the query using "
-            "asymmetric signed force-loop-chain reasoning. Positives are exact "
-            "and trusted. Negatives are estimated with a conservative buffer. "
-            "Build 3-5 event chains, score each, loop until stable, and pick "
-            "the best. Output strict JSON."
-        )
-
+    system_msg = SYSTEM_PROMPTS.get(mode, SYSTEM_SINGLE)
     return (
         f"<|im_start|>system\n{system_msg}<|im_end|>\n"
         f"<|im_start|>user\n{query}<|im_end|>\n"
@@ -129,7 +165,7 @@ def main():
     parser = argparse.ArgumentParser(description="Local GGUF inference for A-S-FLC")
     parser.add_argument("--model", required=True, help="Path to .gguf file")
     parser.add_argument("--query", help="Single query to run")
-    parser.add_argument("--mode", default="single", choices=["single", "security", "memory"])
+    parser.add_argument("--mode", default="single", choices=["single", "security", "memory", "khmer"])
     parser.add_argument("--tier", default="high_end", choices=["high_end", "mid_range", "low_end"])
     parser.add_argument("--interactive", action="store_true", help="Interactive mode")
     args = parser.parse_args()

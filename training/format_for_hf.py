@@ -19,13 +19,65 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 DATASET_DIR = Path(__file__).resolve().parent / "dataset"
 
-SYSTEM_MESSAGE = (
+SYSTEM_SINGLE = (
     "You are an A-S-FLC decision navigator. Analyze the query using "
     "asymmetric signed force-loop-chain reasoning. Positives are exact "
     "and trusted. Negatives are estimated with a conservative buffer. "
     "Build 3-5 event chains, score each, loop until stable, and pick "
-    "the best. Output strict JSON."
+    "the best. Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1}'
 )
+
+SYSTEM_SECURITY = (
+    "You are an A-S-FLC Security Navigator. Combine asymmetric force "
+    "reasoning with threat assessment. Positives = apparent benefits of "
+    "complying. Negatives = estimated costs/risks + conservative buffer. "
+    "Build 2-4 event chains (comply vs refuse/verify). Classify: "
+    "risk_level (SAFE/SUSPICIOUS/DANGEROUS), threat_type, decision_route "
+    "(LOCAL/BLOCK). Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1,'
+    '"risk_level":"SAFE|SUSPICIOUS|DANGEROUS","threat_type":"str|null",'
+    '"decision_route":"LOCAL|BLOCK","source":"small"}'
+)
+
+SYSTEM_MEMORY = (
+    "You are an A-S-FLC Navigator with Memory and Routing. Combine "
+    "asymmetric force reasoning with memory management. Decide "
+    "decision_route (LOCAL/MEMORY_STORE/MEMORY_RETRIEVE/BLOCK/ESCALATE) "
+    "and memory_action (store/retrieve/skip). Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1,'
+    '"decision_route":"LOCAL|MEMORY_STORE|MEMORY_RETRIEVE|BLOCK|ESCALATE",'
+    '"memory_action":{"op":"store|retrieve|skip","key":"str|null","reason":"str"},'
+    '"source":"small"}'
+)
+
+SYSTEM_KHMER = (
+    "You are an A-S-FLC Navigator that understands Khmer. "
+    "User query is in Khmer. chosen_action and reasoning_steps SHOULD be in Khmer. "
+    "Field names and chain_id stay in English. Output strict JSON matching: "
+    '{"chosen_action":"str (Khmer)","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str (Khmer)"],"stability_score":0-1,'
+    '"source":"small"}'
+)
+
+SYSTEM_MESSAGES = {
+    "single": SYSTEM_SINGLE,
+    "whatif": SYSTEM_SINGLE,
+    "security": SYSTEM_SECURITY,
+    "memory": SYSTEM_MEMORY,
+    "khmer": SYSTEM_KHMER,
+}
+
+
+def _system_for_mode(mode: str) -> str:
+    return SYSTEM_MESSAGES.get(mode, SYSTEM_SINGLE)
 
 
 def load_pairs(input_file: Path) -> List[Dict[str, Any]]:
@@ -42,14 +94,16 @@ def to_chat_format(pairs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Convert to chat format for fine-tuning with chat templates."""
     formatted = []
     for pair in pairs:
+        mode = pair.get("mode", "single")
         formatted.append({
             "messages": [
-                {"role": "system", "content": SYSTEM_MESSAGE},
+                {"role": "system", "content": _system_for_mode(mode)},
                 {"role": "user", "content": pair["input"]},
                 {"role": "assistant", "content": pair["output_json"]},
             ],
             "category": pair["category"],
             "id": pair["id"],
+            "mode": mode,
         })
     return formatted
 
@@ -58,12 +112,14 @@ def to_instruction_format(pairs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Convert to instruction format for SFT with Unsloth/TRL."""
     formatted = []
     for pair in pairs:
+        mode = pair.get("mode", "single")
         formatted.append({
-            "instruction": SYSTEM_MESSAGE,
+            "instruction": _system_for_mode(mode),
             "input": pair["input"],
             "output": pair["output_json"],
             "category": pair["category"],
             "id": pair["id"],
+            "mode": mode,
         })
     return formatted
 

@@ -1,0 +1,181 @@
+[
+  {
+    "id": "km-fin-001",
+    "category": "finance",
+    "subcategory": "savings",
+    "query": "ខ្ញុំមានលុយ $500 គួរដាក់សន្សំក្នុងធនាគារ ឬវិនិយោគក្នុងមាស?",
+    "query_en": "I have $500, should I save in the bank or invest in gold?"
+  },
+  {
+    "id": "km-fin-002",
+    "category": "finance",
+    "subcategory": "loan",
+    "query": "គួរខ្ចីលុយ $2000 ដើម្បីទិញម៉ូតូថ្មី ឬទិញម៉ូតូចាស់ $800?",
+    "query_en": "Should I borrow $2000 for a new motorcycle or buy a used one for $800?"
+  },
+  {
+    "id": "km-fin-003",
+    "category": "finance",
+    "subcategory": "budget",
+    "query": "ប្រាក់ខែខ្ញុំ $400 តើគួរចំណាយប៉ុន្មានសម្រាប់ផ្ទះ អាហារ និងសន្សំ?",
+    "query_en": "My salary is $400/month. How should I split rent, food, and savings?"
+  },
+  {
+    "id": "km-fin-004",
+    "category": "finance",
+    "subcategory": "insurance",
+    "query": "គួរទិញធានារ៉ាប់រងសុខភាព $30 ក្នុងមួយខែ ឬសន្សំលុយសម្រាប់ពេលឈឺ?",
+    "query_en": "Buy health insurance at $30/month or save that money for when sick?"
+  },
+  {
+    "id": "km-fin-005",
+    "category": "finance",
+    "subcategory": "investment",
+    "query": "មិត្តប្រាប់ឱ្យវិនិយោគ $1000 ក្នុង crypto គួរជឿទុកចិត្តទេ?",
+    "query_en": "Friend told me to invest $1000 in crypto. Should I trust this?"
+  },
+  {
+    "id": "km-car-001",
+    "category": "career",
+    "subcategory": "job_change",
+    "query": "មានការងារប្រាក់ខែ $350 ប៉ុន្តែមានផ្តល់ជូន $500 នៅក្រុមហ៊ុនថ្មី គួរផ្លាស់ទេ?",
+    "query_en": "I earn $350 but got a $500 offer at a new company. Should I switch?"
+  },
+  {
+    "id": "km-car-002",
+    "category": "career",
+    "subcategory": "education",
+    "query": "គួររៀនបន្តថ្នាក់បរិញ្ញាបត្រ ឬចាប់ផ្ដើមអាជីវកម្មតូចមួយ?",
+    "query_en": "Continue bachelor's degree or start a small business?"
+  },
+  {
+    "id": "km-car-003",
+    "category": "career",
+    "subcategory": "skill",
+    "query": "គួររៀន programming ឬរៀនភាសាអង់គ្លេសមុន? ខ្ញុំអាយុ 22 ឆ្នាំ។",
+    "query_en": "Learn programming or English first? I'm 22."
+  },
+  {
+    "id": "km-car-004",
+    "category": "career",
+    "subcategory": "freelance",
+    "query": "គួរធ្វើការ freelance ពីផ្ទះ ឬធ្វើការក្នុងការិយាល័យ?",
+    "query_en": "Freelance from home or work in an office?"
+  },
+  {
+    "id": "km-car-005",
+    "category": "career",
+    "subcategory": "startup",
+    "query": "ចង់បើកហាងកាហ្វេតូចមួយ ត្រូវការដើមទុន $3000 គួរខ្ចីឬសន្សំ?",
+    "query_en": "Want to open a coffee shop. Need $3000. Borrow or save?"
+  },
+  {
+    "id": "km-day-001",
+    "category": "daily_life",
+    "subcategory": "transport",
+    "query": "គួរទិញម៉ូតូ ឬជិះតុកតុកជារៀងរាល់ថ្ងៃ? ការងារឆ្ងាយ 10km។",
+    "query_en": "Buy a motorcycle or take tuk-tuk daily? Work is 10km away."
+  },
+  {
+    "id": "km-day-002",
+    "category": "daily_life",
+    "subcategory": "housing",
+    "query": "គួរជួលបន្ទប់ $80 ក្នុងមួយខែ ឬផ្ទះតូច $200 សម្រាប់គ្រួសារ?",
+    "query_en": "Rent a room $80/month or a house $200/month for family?"
+  },
+  {
+    "id": "km-day-003",
+    "category": "daily_life",
+    "subcategory": "food",
+    "query": "គួរចម្អិនអាហារនៅផ្ទះ ឬទិញអាហារពីក្រៅជារៀងរាល់ថ្ងៃ?",
+    "query_en": "Cook at home or buy food outside every day?"
+  },
+  {
+    "id": "km-day-004",
+    "category": "daily_life",
+    "subcategory": "phone",
+    "query": "គួរទិញ iPhone ចាស់ $300 ឬ Android ថ្មី $150?",
+    "query_en": "Buy a used iPhone $300 or new Android $150?"
+  },
+  {
+    "id": "km-day-005",
+    "category": "daily_life",
+    "subcategory": "health",
+    "query": "គួរហាត់ប្រាណនៅ gym $25 ក្នុងមួយខែ ឬហាត់នៅផ្ទះដោយឥតគិតថ្លៃ?",
+    "query_en": "Gym at $25/month or exercise at home for free?"
+  },
+  {
+    "id": "km-sec-001",
+    "category": "security",
+    "subcategory": "scam",
+    "query": "មានអ្នកទាក់ទងតាម Telegram ប្រាប់ថាឈ្នះរង្វាន់ $5000 គួរជឿទេ?",
+    "query_en": "Someone on Telegram says I won $5000. Should I believe it?"
+  },
+  {
+    "id": "km-sec-002",
+    "category": "security",
+    "subcategory": "phishing",
+    "query": "សារពី ABA Bank ឱ្យចុច link ផ្ទៀងផ្ទាត់គណនី ពិតទេ?",
+    "query_en": "ABA Bank message asking to click link to verify account. Real?"
+  },
+  {
+    "id": "km-sec-003",
+    "category": "security",
+    "subcategory": "fraud",
+    "query": "មិត្តសុំឱ្យផ្ញើលុយ $200 តាម Wing ដោយមិនប្រាប់ហេតុផល។ គួរផ្ញើទេ?",
+    "query_en": "Friend asks to send $200 via Wing with no reason. Should I?"
+  },
+  {
+    "id": "km-sec-004",
+    "category": "security",
+    "subcategory": "investment_scam",
+    "query": "គេប្រាប់ថាវិនិយោគ $100 នឹងបាន $1000 ក្នុង 1 សប្ដាហ៍។ ពិតទេ?",
+    "query_en": "They say invest $100 get $1000 in a week. Real?"
+  },
+  {
+    "id": "km-sec-005",
+    "category": "security",
+    "subcategory": "social_engineering",
+    "query": "បុគ្គលិក Cellcard ទូរស័ព្ទមកសុំ PIN code។ គួរឱ្យទេ?",
+    "query_en": "Cellcard staff calls asking for my PIN. Should I give it?"
+  },
+  {
+    "id": "km-mem-001",
+    "category": "memory",
+    "subcategory": "store_preference",
+    "query": "ខ្ញុំមានអាឡែសុីទឹកដូង។ ចាំទុកសម្រាប់ដំបូន្មានអាហារ។",
+    "query_en": "I am allergic to coconut. Remember for food advice."
+  },
+  {
+    "id": "km-mem-002",
+    "category": "memory",
+    "subcategory": "store_preference",
+    "query": "My daily budget is $10. Remember this.",
+    "query_en": "My daily budget is $10. Remember this.",
+    "needs_khmer": true
+  },
+  {
+    "id": "km-mem-003",
+    "category": "memory",
+    "subcategory": "store_fact",
+    "query": "I work in Phnom Penh but live in Kandal. Remember for commute advice.",
+    "query_en": "I work in Phnom Penh but live in Kandal. Remember for commute advice.",
+    "needs_khmer": true
+  },
+  {
+    "id": "km-mem-004",
+    "category": "memory",
+    "subcategory": "retrieve",
+    "query": "What allergies did I mention before?",
+    "query_en": "What allergies did I mention before?",
+    "needs_khmer": true
+  },
+  {
+    "id": "km-mem-005",
+    "category": "memory",
+    "subcategory": "store_preference",
+    "query": "I prefer Khmer food over Western food. Remember this.",
+    "query_en": "I prefer Khmer food over Western food. Remember this.",
+    "needs_khmer": true
+  }
+]
