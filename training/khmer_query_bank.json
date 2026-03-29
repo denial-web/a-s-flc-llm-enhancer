@@ -150,32 +150,28 @@
     "id": "km-mem-002",
     "category": "memory",
     "subcategory": "store_preference",
-    "query": "My daily budget is $10. Remember this.",
-    "query_en": "My daily budget is $10. Remember this.",
-    "needs_khmer": true
+    "query": "ថវិកាចំណាយប្រចាំថ្ងៃរបស់ខ្ញុំគឺ $10។ សូមចាំទុក។",
+    "query_en": "My daily budget is $10. Remember this."
   },
   {
     "id": "km-mem-003",
     "category": "memory",
     "subcategory": "store_fact",
-    "query": "I work in Phnom Penh but live in Kandal. Remember for commute advice.",
-    "query_en": "I work in Phnom Penh but live in Kandal. Remember for commute advice.",
-    "needs_khmer": true
+    "query": "ខ្ញុំធ្វើការនៅភ្នំពេញ តែរស់នៅខេត្តកណ្តាល។ ចាំទុកសម្រាប់ដំបូន្មានការធ្វើដំណើរ។",
+    "query_en": "I work in Phnom Penh but live in Kandal. Remember for commute advice."
   },
   {
     "id": "km-mem-004",
     "category": "memory",
     "subcategory": "retrieve",
-    "query": "What allergies did I mention before?",
-    "query_en": "What allergies did I mention before?",
-    "needs_khmer": true
+    "query": "តើកាលពីមុនខ្ញុំបានប្រាប់ពីអាឡែសុីអ្វីខ្លះ?",
+    "query_en": "What allergies did I mention before?"
   },
   {
     "id": "km-mem-005",
     "category": "memory",
     "subcategory": "store_preference",
-    "query": "I prefer Khmer food over Western food. Remember this.",
-    "query_en": "I prefer Khmer food over Western food. Remember this.",
-    "needs_khmer": true
+    "query": "ខ្ញុំចូលចិត្តម្ហូបខ្មែរជាងម្ហូបអឺរ៉ុប។ សូមចាំទុក។",
+    "query_en": "I prefer Khmer food over Western food. Remember this."
   }
 ]
