@@ -20,6 +20,11 @@ training/dataset/_checkpoint*.json
 
 *.log
 .DS_Store
+
+# Large model files
+*.gguf
+lora_asflc/
+gguf_asflc/
 Thumbs.db
 
 .vscode/

@@ -96,15 +96,40 @@ See `core/types.py` for the canonical Pydantic schema.
 - ✅ Mobile config: `deployment/mobile_config.py` (device tiers, performance budgets, inference params).
 - ✅ Local inference: `deployment/local_inference.py` (llama-cpp-python runner with policy guard + validation).
 
-## Remaining Work
+## First Training Run — Eval Results (2026-03-29)
 
-- [ ] Run fine-tuning on Colab Pro (GPU required).
-- [ ] Generate memory training pairs: `python training/generate_dataset.py --mode memory`.
-- [ ] Re-upload expanded dataset to HuggingFace: `python training/upload_to_hf.py --repo denialkhmbot/a-s-flc-decisions`.
-- [ ] Evaluate model: >= 90% valid JSON on held-out set.
-- [ ] Export GGUF on Colab: `python deployment/export_gguf.py --adapter lora_asflc`.
-- [ ] Test on-device inference with llama-cpp-python.
-- [ ] Benchmark latency against `deployment/mobile_config.py` performance budgets.
+**Config:** Qwen2.5-1.5B, QLoRA r=16, 500 steps (~8 epochs), 448 train / 20 eval, Groq Llama 3.3 70B teacher.
+
+**Training loss:** 2.4 → 0.05 (converged well).
+
+**Local inference (MacBook, Q4_K_M GGUF, 940MB):**
+
+| Test | Mode | Valid JSON | Quality | Speed | Notes |
+|------|------|-----------|---------|-------|-------|
+| Job offer decision | single | ✅ | 0.90 | 53 tok/s | Correct scoring, 4 reasoning steps |
+| Investment 3-way | single | ❌ | — | 53 tok/s | Good reasoning but JSON truncated at 425 tokens |
+| Tax/IRA analysis | single | ✅ | 0.90 | 55 tok/s | Correctly chose ESCALATE route |
+| Phishing email | security | ❌ | — | 25 tok/s | Correct SUSPICIOUS+BLOCK but wrong schema |
+| Allergy memory | memory | ❌ | — | 34 tok/s | Correct STORE route but simplified schema |
+| Lottery gift card | security | BLOCKED | N/A | instant | Policy Guard caught it pre-model |
+
+**Strengths:** Core A-S-FLC decisions are solid; policy guard works; escalation routing works; 53+ tok/s on Mac.
+
+**Weaknesses:** Security and memory modes produce simplified JSON (not full DecisionOutput schema); long queries can truncate.
+
+**Next improvements:**
+- [ ] Add more security/memory examples with full DecisionOutput schema to training data.
+- [ ] Increase `max_new_tokens` for complex multi-option queries.
+- [ ] Run full 20-ID eval harness for precise valid-JSON percentage.
+- [ ] Test on actual mobile device (iPhone/Android).
+
+## Completed Milestones
+
+- [x] Run fine-tuning on Colab Pro (500 steps, T4 GPU, loss 0.05).
+- [x] Generate memory training pairs (90 pairs via Groq).
+- [x] Upload expanded dataset to HuggingFace (468 examples).
+- [x] Export GGUF on Colab (Q4_K_M, 940MB).
+- [x] Test on-device inference with llama-cpp-python (53+ tok/s on Mac).
 
 ## What NOT to Build Yet
 
