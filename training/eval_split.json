@@ -23,6 +23,18 @@
     "legal-003",
     "km-fin-003",
     "km-car-003",
-    "km-sec-002"
+    "km-sec-002",
+    "zh-fin-003",
+    "zh-sec-002",
+    "ko-fin-003",
+    "ko-sec-002",
+    "pii-cc-001",
+    "pii-pw-001",
+    "pii-safe-001",
+    "tool-calc-001",
+    "tool-search-001",
+    "tool-none-001",
+    "cred-001",
+    "cred-003"
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "mode": "pii",
+  "total_queries": 25,
+  "successful": 24,
+  "failed": 1,
+  "categories": [
+    "security",
+    "daily_life"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_pii_pairs.jsonl"
+}

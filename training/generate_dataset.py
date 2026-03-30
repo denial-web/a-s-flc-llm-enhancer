@@ -27,6 +27,11 @@ QUERY_BANK = Path(__file__).resolve().parent / "query_bank.json"
 SECURITY_BANK = Path(__file__).resolve().parent / "security_query_bank.json"
 MEMORY_BANK = Path(__file__).resolve().parent / "memory_query_bank.json"
 KHMER_BANK = Path(__file__).resolve().parent / "khmer_query_bank.json"
+CHINESE_BANK = Path(__file__).resolve().parent / "chinese_query_bank.json"
+KOREAN_BANK = Path(__file__).resolve().parent / "korean_query_bank.json"
+PII_BANK = Path(__file__).resolve().parent / "pii_query_bank.json"
+TOOL_BANK = Path(__file__).resolve().parent / "tool_query_bank.json"
+CREDIT_BANK = Path(__file__).resolve().parent / "credit_query_bank.json"
 OUTPUT_DIR = Path(__file__).resolve().parent / "dataset"
 
 
@@ -40,18 +45,19 @@ def load_queries(
     limit: Optional[int] = None,
     mode: str = "single",
 ) -> List[Dict[str, Any]]:
-    if mode == "security":
-        with open(SECURITY_BANK) as f:
-            queries = json.load(f)
-    elif mode == "memory":
-        with open(MEMORY_BANK) as f:
-            queries = json.load(f)
-    elif mode == "khmer":
-        with open(KHMER_BANK) as f:
-            queries = json.load(f)
-    else:
-        with open(QUERY_BANK) as f:
-            queries = json.load(f)
+    bank_map = {
+        "security": SECURITY_BANK,
+        "memory": MEMORY_BANK,
+        "khmer": KHMER_BANK,
+        "chinese": CHINESE_BANK,
+        "korean": KOREAN_BANK,
+        "pii": PII_BANK,
+        "tool": TOOL_BANK,
+        "credit": CREDIT_BANK,
+    }
+    bank_path = bank_map.get(mode, QUERY_BANK)
+    with open(bank_path) as f:
+        queries = json.load(f)
     if limit:
         queries = queries[:limit]
     return queries
@@ -91,8 +97,10 @@ def generate_pair(
             result = wrapper.decide_security(query)
         elif mode == "memory":
             result = wrapper.decide_memory(query)
-        elif mode == "khmer":
+        elif mode in ("khmer", "chinese", "korean"):
             result = wrapper.decide_khmer(query)
+        elif mode in ("pii", "tool", "credit"):
+            result = wrapper.decide_security(query)
         else:
             result = wrapper.decide(query)
 
@@ -125,7 +133,8 @@ def generate_dataset(
     wrapper = A_S_FLC_Wrapper(config)
     queries = load_queries(limit, mode=mode)
 
-    ck_mode = mode if mode in ("security", "whatif", "single", "memory", "khmer") else "single"
+    all_modes = ("security", "whatif", "single", "memory", "khmer", "chinese", "korean", "pii", "tool", "credit")
+    ck_mode = mode if mode in all_modes else "single"
     completed = load_checkpoint(ck_mode) if resume else set()
     remaining = [q for q in queries if q["id"] not in completed]
 

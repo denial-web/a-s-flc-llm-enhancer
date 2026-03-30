@@ -77,6 +77,14 @@ class DecisionOutput(BaseModel):
         default="small",
         description="small | large_knowledge",
     )
+    tool_request: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description='Stage 5: {"tool": "web_search|calculator|reminder|translate", "args": {...}, "reason": str} or null',
+    )
+    pii_detected: Optional[str] = Field(
+        default=None,
+        description="Type of PII found in user input: credit_card|password|national_id|bank_account|phone|null",
+    )
 
 
 class EventNode(BaseModel):

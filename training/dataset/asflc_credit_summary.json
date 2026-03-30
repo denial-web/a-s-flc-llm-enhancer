@@ -1,0 +1,11 @@
+{
+  "mode": "credit",
+  "total_queries": 18,
+  "successful": 18,
+  "failed": 0,
+  "categories": [
+    "credit"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_credit_pairs.jsonl"
+}

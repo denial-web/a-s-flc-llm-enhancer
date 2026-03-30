@@ -1,0 +1,128 @@
+[
+  {
+    "id": "cred-001",
+    "category": "credit",
+    "subcategory": "cost_inquiry",
+    "query": "How much does it cost when you escalate to the big model?",
+    "query_en": "Cost inquiry about escalation"
+  },
+  {
+    "id": "cred-002",
+    "category": "credit",
+    "subcategory": "set_limit",
+    "query": "Set my monthly spending limit to $5 for cloud model usage.",
+    "query_en": "Set monthly credit limit"
+  },
+  {
+    "id": "cred-003",
+    "category": "credit",
+    "subcategory": "check_balance",
+    "query": "How much credit do I have remaining this month?",
+    "query_en": "Check remaining credit"
+  },
+  {
+    "id": "cred-004",
+    "category": "credit",
+    "subcategory": "alert",
+    "query": "Warn me when I've used 80% of my credit limit.",
+    "query_en": "Set credit alert threshold"
+  },
+  {
+    "id": "cred-005",
+    "category": "credit",
+    "subcategory": "no_limit",
+    "query": "What happens if I don't set a spending limit?",
+    "query_en": "Ask about no-limit scenario"
+  },
+  {
+    "id": "cred-006",
+    "category": "credit",
+    "subcategory": "cost_inquiry",
+    "query": "Is it cheaper to use Groq or OpenAI for escalation?",
+    "query_en": "Compare provider costs"
+  },
+  {
+    "id": "cred-007",
+    "category": "credit",
+    "subcategory": "budget_advice",
+    "query": "I'm a student with limited budget. How should I use the cloud model wisely?",
+    "query_en": "Budget advice for cloud usage"
+  },
+  {
+    "id": "cred-008",
+    "category": "credit",
+    "subcategory": "usage_report",
+    "query": "Show me how much I spent on cloud models this week.",
+    "query_en": "Weekly usage report"
+  },
+  {
+    "id": "cred-009",
+    "category": "credit",
+    "subcategory": "set_limit",
+    "query": "Change my daily limit to $1 instead of monthly.",
+    "query_en": "Change limit period"
+  },
+  {
+    "id": "cred-010",
+    "category": "credit",
+    "subcategory": "cost_inquiry",
+    "query": "How many tokens does a typical escalation use?",
+    "query_en": "Token usage inquiry"
+  },
+  {
+    "id": "cred-km-001",
+    "category": "credit",
+    "subcategory": "set_limit",
+    "query": "កំណត់ថវិកាប្រចាំខែរបស់ខ្ញុំទៅ $3 សម្រាប់ការប្រើប្រាស់ cloud model។",
+    "query_en": "Set my monthly budget to $3 for cloud usage."
+  },
+  {
+    "id": "cred-km-002",
+    "category": "credit",
+    "subcategory": "check_balance",
+    "query": "តើខ្ញុំនៅសល់ credit ប៉ុន្មានក្នុងខែនេះ?",
+    "query_en": "How much credit do I have left?"
+  },
+  {
+    "id": "cred-zh-001",
+    "category": "credit",
+    "subcategory": "set_limit",
+    "query": "把我的每月云模型使用额度设为30元。",
+    "query_en": "Set my monthly cloud model limit to 30 yuan."
+  },
+  {
+    "id": "cred-zh-002",
+    "category": "credit",
+    "subcategory": "check_balance",
+    "query": "我这个月还剩多少额度？",
+    "query_en": "How much credit do I have left this month?"
+  },
+  {
+    "id": "cred-zh-003",
+    "category": "credit",
+    "subcategory": "cost_inquiry",
+    "query": "问大模型一次要花多少钱？",
+    "query_en": "How much does one escalation to the big model cost?"
+  },
+  {
+    "id": "cred-ko-001",
+    "category": "credit",
+    "subcategory": "set_limit",
+    "query": "월 사용 한도를 5000원으로 설정해 주세요.",
+    "query_en": "Set my monthly usage limit to 5000 won."
+  },
+  {
+    "id": "cred-ko-002",
+    "category": "credit",
+    "subcategory": "check_balance",
+    "query": "이번 달 남은 크레딧이 얼마나 되나요?",
+    "query_en": "How much credit do I have left this month?"
+  },
+  {
+    "id": "cred-ko-003",
+    "category": "credit",
+    "subcategory": "cost_inquiry",
+    "query": "큰 모델한테 물어보면 비용이 얼마나 들어요?",
+    "query_en": "How much does it cost to ask the big model?"
+  }
+]

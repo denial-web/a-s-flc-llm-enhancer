@@ -1,0 +1,15 @@
+{
+  "mode": "korean",
+  "total_queries": 25,
+  "successful": 22,
+  "failed": 3,
+  "categories": [
+    "daily_life",
+    "finance",
+    "career",
+    "security",
+    "memory"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_korean_pairs.jsonl"
+}

@@ -1,0 +1,205 @@
+[
+  {
+    "id": "tool-search-001",
+    "category": "tool_use",
+    "subcategory": "web_search",
+    "query": "What's the weather like in Phnom Penh today?",
+    "query_en": "Weather query needing web search"
+  },
+  {
+    "id": "tool-search-002",
+    "category": "tool_use",
+    "subcategory": "web_search",
+    "query": "What is the current USD to KHR exchange rate?",
+    "query_en": "Exchange rate query"
+  },
+  {
+    "id": "tool-search-003",
+    "category": "tool_use",
+    "subcategory": "web_search",
+    "query": "What are the latest COVID travel rules for Japan?",
+    "query_en": "Travel rules query"
+  },
+  {
+    "id": "tool-search-004",
+    "category": "tool_use",
+    "subcategory": "web_search",
+    "query": "Find the best rated restaurants near Gangnam Station Seoul",
+    "query_en": "Restaurant search"
+  },
+  {
+    "id": "tool-calc-001",
+    "category": "tool_use",
+    "subcategory": "calculator",
+    "query": "Calculate 15% tip on a $85.50 dinner bill",
+    "query_en": "Tip calculation"
+  },
+  {
+    "id": "tool-calc-002",
+    "category": "tool_use",
+    "subcategory": "calculator",
+    "query": "If I save $200/month for 5 years at 4% interest, how much will I have?",
+    "query_en": "Compound interest calculation"
+  },
+  {
+    "id": "tool-calc-003",
+    "category": "tool_use",
+    "subcategory": "calculator",
+    "query": "Split a $156.80 bill between 4 people including 18% tip",
+    "query_en": "Bill split calculation"
+  },
+  {
+    "id": "tool-calc-004",
+    "category": "tool_use",
+    "subcategory": "calculator",
+    "query": "What's 30% of my monthly salary of $2500 for rent budget?",
+    "query_en": "Budget percentage calculation"
+  },
+  {
+    "id": "tool-remind-001",
+    "category": "tool_use",
+    "subcategory": "reminder",
+    "query": "Remind me to pay the electricity bill next Monday",
+    "query_en": "Payment reminder"
+  },
+  {
+    "id": "tool-remind-002",
+    "category": "tool_use",
+    "subcategory": "reminder",
+    "query": "Set a reminder for my dentist appointment at 3pm on Friday",
+    "query_en": "Appointment reminder"
+  },
+  {
+    "id": "tool-remind-003",
+    "category": "tool_use",
+    "subcategory": "reminder",
+    "query": "Remind me to call mom every Sunday at 10am",
+    "query_en": "Recurring reminder"
+  },
+  {
+    "id": "tool-trans-001",
+    "category": "tool_use",
+    "subcategory": "translate",
+    "query": "Translate 'Where is the nearest hospital?' to Khmer",
+    "query_en": "Translation to Khmer"
+  },
+  {
+    "id": "tool-trans-002",
+    "category": "tool_use",
+    "subcategory": "translate",
+    "query": "How do you say 'I need help' in Korean?",
+    "query_en": "Translation to Korean"
+  },
+  {
+    "id": "tool-trans-003",
+    "category": "tool_use",
+    "subcategory": "translate",
+    "query": "Translate this to Chinese: I would like to check in please",
+    "query_en": "Translation to Chinese"
+  },
+  {
+    "id": "tool-none-001",
+    "category": "daily_life",
+    "subcategory": "no_tool",
+    "query": "Should I buy a car or use public transport?",
+    "query_en": "Decision query, no tool needed"
+  },
+  {
+    "id": "tool-none-002",
+    "category": "daily_life",
+    "subcategory": "no_tool",
+    "query": "What's the best way to learn programming?",
+    "query_en": "Advice query, no tool needed"
+  },
+  {
+    "id": "tool-none-003",
+    "category": "daily_life",
+    "subcategory": "no_tool",
+    "query": "Is it better to rent or buy a house in my situation?",
+    "query_en": "Decision query, no tool needed"
+  },
+  {
+    "id": "tool-km-001",
+    "category": "tool_use",
+    "subcategory": "web_search",
+    "query": "តើអាកាសធាតុនៅភ្នំពេញថ្ងៃនេះយ៉ាងម៉េច?",
+    "query_en": "Weather in Phnom Penh today?"
+  },
+  {
+    "id": "tool-km-002",
+    "category": "tool_use",
+    "subcategory": "calculator",
+    "query": "គណនា 10% នៃវិក្កយបត្រ 25000 រៀល សម្រាប់ tip",
+    "query_en": "Calculate 10% tip on 25000 riel bill"
+  },
+  {
+    "id": "tool-zh-001",
+    "category": "tool_use",
+    "subcategory": "web_search",
+    "query": "今天上海天气怎么样？",
+    "query_en": "What's the weather in Shanghai today?"
+  },
+  {
+    "id": "tool-zh-002",
+    "category": "tool_use",
+    "subcategory": "calculator",
+    "query": "帮我算一下买房贷款100万，30年，利率3.5%，月供多少？",
+    "query_en": "Calculate mortgage: 1M loan, 30 years, 3.5% rate, monthly payment?"
+  },
+  {
+    "id": "tool-zh-003",
+    "category": "tool_use",
+    "subcategory": "reminder",
+    "query": "提醒我周五下午三点开会。",
+    "query_en": "Remind me about a meeting Friday 3pm."
+  },
+  {
+    "id": "tool-zh-004",
+    "category": "tool_use",
+    "subcategory": "translate",
+    "query": "把'请问最近的医院在哪里'翻译成英文。",
+    "query_en": "Translate 'Where is the nearest hospital' to English."
+  },
+  {
+    "id": "tool-zh-005",
+    "category": "daily_life",
+    "subcategory": "no_tool",
+    "query": "该不该辞职去创业？",
+    "query_en": "Should I quit to start a business? No tool needed."
+  },
+  {
+    "id": "tool-ko-001",
+    "category": "tool_use",
+    "subcategory": "web_search",
+    "query": "오늘 서울 날씨 어때요?",
+    "query_en": "What's the weather in Seoul today?"
+  },
+  {
+    "id": "tool-ko-002",
+    "category": "tool_use",
+    "subcategory": "calculator",
+    "query": "월급 300만원에서 세금 3.3% 빼면 실수령액이 얼마예요?",
+    "query_en": "Salary 3M won minus 3.3% tax, what's the take-home?"
+  },
+  {
+    "id": "tool-ko-003",
+    "category": "tool_use",
+    "subcategory": "reminder",
+    "query": "내일 오전 9시에 병원 예약 알려줘.",
+    "query_en": "Remind me about hospital appointment tomorrow 9am."
+  },
+  {
+    "id": "tool-ko-004",
+    "category": "tool_use",
+    "subcategory": "translate",
+    "query": "'도와주세요'를 영어로 뭐라고 해요?",
+    "query_en": "How do you say 'help me' in English?"
+  },
+  {
+    "id": "tool-ko-005",
+    "category": "daily_life",
+    "subcategory": "no_tool",
+    "query": "서울에서 부산으로 KTX 타고 갈까요 비행기 탈까요?",
+    "query_en": "Seoul to Busan: KTX or flight? No tool needed."
+  }
+]

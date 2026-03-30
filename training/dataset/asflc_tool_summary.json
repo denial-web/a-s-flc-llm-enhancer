@@ -1,0 +1,12 @@
+{
+  "mode": "tool",
+  "total_queries": 29,
+  "successful": 29,
+  "failed": 0,
+  "categories": [
+    "daily_life",
+    "tool_use"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_tool_pairs.jsonl"
+}

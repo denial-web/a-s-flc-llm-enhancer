@@ -23,6 +23,11 @@ FILES_TO_UPLOAD = [
     "asflc_security_pairs.jsonl",
     "asflc_memory_pairs.jsonl",
     "asflc_khmer_pairs.jsonl",
+    "asflc_chinese_pairs.jsonl",
+    "asflc_korean_pairs.jsonl",
+    "asflc_pii_pairs.jsonl",
+    "asflc_tool_pairs.jsonl",
+    "asflc_credit_pairs.jsonl",
     "distillation_chat_format.jsonl",
     "reward_shaper_eval.json",
 ]

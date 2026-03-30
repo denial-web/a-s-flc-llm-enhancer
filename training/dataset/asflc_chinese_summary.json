@@ -1,0 +1,15 @@
+{
+  "mode": "chinese",
+  "total_queries": 25,
+  "successful": 21,
+  "failed": 4,
+  "categories": [
+    "finance",
+    "daily_life",
+    "career",
+    "security",
+    "memory"
+  ],
+  "provider": "groq/llama-3.3-70b-versatile",
+  "output_file": "/Users/hy/CascadeProjects/a-s-flc-llm-enhancer/training/dataset/asflc_chinese_pairs.jsonl"
+}

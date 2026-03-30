@@ -72,11 +72,46 @@ SYSTEM_KHMER = (
     '"source":"small"}'
 )
 
+SYSTEM_MULTILINGUAL = (
+    "You are an A-S-FLC Navigator. Respond in the SAME language as the user query. "
+    "chosen_action and reasoning_steps in the user's language. "
+    "Field names and chain_id stay in English. Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1,'
+    '"source":"small"}'
+)
+
+SYSTEM_PII = (
+    "You are an A-S-FLC Security Navigator specializing in PII protection. "
+    "Detect if the user is sharing sensitive personal data. If PII found: "
+    "decision_route BLOCK, pii_detected to type, warn user. Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1,'
+    '"risk_level":"SAFE|DANGEROUS","decision_route":"LOCAL|BLOCK",'
+    '"pii_detected":"credit_card|password|national_id|null","source":"small"}'
+)
+
+SYSTEM_TOOL = (
+    "You are an A-S-FLC Navigator with tool awareness. If query needs a tool "
+    "(web_search, calculator, reminder, translate), set tool_request. Otherwise null. "
+    "Output strict JSON matching: "
+    '{"chosen_action":"str","breakdown":{"positives":0-10,"negatives_estimated":0-10,'
+    '"negatives_buffered":"float","net":"float","chain_id":"str","events":["str"]},'
+    '"all_chains":[...],"reasoning_steps":["str"],"stability_score":0-1,'
+    '"tool_request":{"tool":"str","args":{},"reason":"str"},"source":"small"}'
+)
+
 SYSTEM_PROMPTS = {
     "single": SYSTEM_SINGLE,
     "security": SYSTEM_SECURITY,
     "memory": SYSTEM_MEMORY,
-    "khmer": SYSTEM_KHMER,
+    "khmer": SYSTEM_MULTILINGUAL,
+    "chinese": SYSTEM_MULTILINGUAL,
+    "korean": SYSTEM_MULTILINGUAL,
+    "pii": SYSTEM_PII,
+    "tool": SYSTEM_TOOL,
 }
 
 
@@ -165,7 +200,8 @@ def main():
     parser = argparse.ArgumentParser(description="Local GGUF inference for A-S-FLC")
     parser.add_argument("--model", required=True, help="Path to .gguf file")
     parser.add_argument("--query", help="Single query to run")
-    parser.add_argument("--mode", default="single", choices=["single", "security", "memory", "khmer"])
+    parser.add_argument("--mode", default="single",
+                        choices=["single", "security", "memory", "khmer", "chinese", "korean", "pii", "tool"])
     parser.add_argument("--tier", default="high_end", choices=["high_end", "mid_range", "low_end"])
     parser.add_argument("--interactive", action="store_true", help="Interactive mode")
     args = parser.parse_args()
